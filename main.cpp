@@ -1,46 +1,22 @@
 #include "mbed.h"
-#include "LCD.h"
 
-// Bitte aufpassen, MF-Shield bentzt dieses PIN, also MF-Shield nicht benutzen
-// wenn Sie MF-Shield brauchen, dann PC_2, oder PC_03 benutzen
-AnalogIn alkohol_sensor(PA_0);
-
-lcd my_lcd;
-
-//Direkte prinft(), werden an Serial-angezeigt, z.B. mithilfe der Putty COM??, 9600
-
-
+float pi = 3.14f;
+/* Serial Verbindung an 9600, anstatt 115200 */
 int main()
 {
+    printf("Comman Zahlen in Mbed ausdrucken\n");
     printf("------------------------------\n");
-    printf("Alkohol Tester v1.0\n");
+    printf("bitte beachten Sie die datei: mbed_app.json\n");
     printf("------------------------------\n");
-    printf("Blutalkohol bisch 0,25 ischt gut, aber dannoch ischt koin spoß mehr\n");
-    printf("------------------------------\n\n\n");
+    printf("Wert von PI ist %.4f\n", pi);
+    printf("Wert von 17/3 ist %.4f\n", 17.0/3.0);
 
-
-    float akzeptiert_alkohol = 0.25f;
-    float alkohol = 0.0f;
-    bool ist_besoffen = false;
-    my_lcd.clear();
+    float rand_zahl = 0.0f;
+    
     while (true) {
-        alkohol = alkohol_sensor.read();
-        printf("Blutalkohol ist %.2f\n", alkohol);
-        my_lcd.cursorpos(0);
-        my_lcd.printf("Alkohol: %.2f", alkohol);
-
-        if(alkohol <= akzeptiert_alkohol){    
-            printf("Es geht schon\n");
-            my_lcd.cursorpos(64);
-            my_lcd.printf("Es geht schon   ");
-        } else {
-            printf("Du b15cht v011 bes0f3n\n");
-            my_lcd.cursorpos(64);
-            my_lcd.printf("du b15 beS50ffen");
-        }
-
+        rand_zahl = rand()/3.14;
+        printf("Zufallzahl: %.4f\n", ((float)rand_zahl/3.14));
         ThisThread::sleep_for(1000ms);
     }
 
 }
-
